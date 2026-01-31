@@ -1,14 +1,10 @@
-import type { UserType } from "@/app/(auth)/auth";
+// No authentication - entitlements not used
+// Kept for compatibility with existing code
 
 type Entitlements = {
   maxMessagesPerDay: number;
 };
 
-export const entitlementsByUserType: Record<UserType, Entitlements> = {
-  /*
-   * All users are guests with basic rate limits
-   */
-  guest: {
-    maxMessagesPerDay: 100,
-  },
+export const defaultEntitlements: Entitlements = {
+  maxMessagesPerDay: 100,
 };

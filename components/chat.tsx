@@ -2,8 +2,9 @@
 
 import { useChat } from "@ai-sdk/react";
 import { useState } from "react";
-import type { ChatMessage } from "@/lib/types";
+import type { Attachment, ChatMessage } from "@/lib/types";
 import { generateUUID } from "@/lib/utils";
+import { DEFAULT_CHAT_MODEL } from "@/lib/ai/models";
 import { useDataStream } from "./data-stream-provider";
 import { Messages } from "./messages";
 import { MultimodalInput } from "./multimodal-input";
@@ -17,8 +18,11 @@ export function Chat({
 }) {
   const { setDataStream } = useDataStream();
   const [input, setInput] = useState<string>("");
+  const [attachments, setAttachments] = useState<Attachment[]>([]);
+  const [selectedVisibilityType, setSelectedVisibilityType] = useState<"public" | "private">("private");
+  const [selectedModelId, setSelectedModelId] = useState<string>(DEFAULT_CHAT_MODEL.id);
 
-  const { messages, sendMessage, status, stop, addToolApprovalResponse } =
+  const { messages, sendMessage, status, stop, addToolApprovalResponse, setMessages } =
     useChat<ChatMessage>({
       id,
       messages: initialMessages,
@@ -64,8 +68,14 @@ export function Chat({
         messages={messages}
         sendMessage={sendMessage}
         setInput={setInput}
+        setMessages={setMessages}
         status={status}
         stop={stop}
+        attachments={attachments}
+        setAttachments={setAttachments}
+        selectedVisibilityType={selectedVisibilityType}
+        selectedModelId={selectedModelId}
+        onModelChange={setSelectedModelId}
       />
     </div>
   );
