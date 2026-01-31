@@ -6,20 +6,9 @@ type Entitlements = {
 
 export const entitlementsByUserType: Record<UserType, Entitlements> = {
   /*
-   * For users without an account
+   * All users are guests with basic rate limits
    */
   guest: {
-    maxMessagesPerDay: 20,
+    maxMessagesPerDay: 100,
   },
-
-  /*
-   * For users with an account
-   */
-  regular: {
-    maxMessagesPerDay: 50,
-  },
-
-  /*
-   * TODO: For users with an account and a paid membership
-   */
 };
